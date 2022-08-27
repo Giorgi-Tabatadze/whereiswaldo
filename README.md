@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# whereiswaldo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Goal of this project is to create a game similar to the popular game "where
+is waldo" however it is going to be different popual cartoon themed.
+Game will have several features.
 
-## Available Scripts
+Technologies used:
+Html, Css, Javascript, React, Firebase
 
-In the project directory, you can run:
+---
 
-### `npm start`
+1.1 Main feature is to show the image and allow user to select a location on the
+image where they think character that they are looking for is located. This will
+be achieved through tracking mouse event coordinates and checking it with a
+referance coordinates on the backed with firebase. (Aiming Logic)(Validation Logic on backend)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1.2 any click should give a popup window with names of the characters that are
+left to be found. (popups for names)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1.3 each selection of the character should give a responce on whether or not
+correct location has been clicked. It could be achieved with a popup. (Popups for correct or incorrect)
 
-### `npm test`
+1.4 Characters that are found should be appropriately marked eather on the header
+where we have a list of characters or on the map itself. (Shows Characters)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1.5 after winning the game allow to type the name for the leaderboard. (End Game save username and save data for backend)
 
-### `npm run build`
+1.6 track the time and show it on the top of the page. (shows time)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2.1 First page is going to present us with some instructions on how to play the
+game. (How to play Popup)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.2 Home page is going to be showing us different levels in form of cards. Each
+card will lead to the relevant image and start the particular game. (level cards)
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3.1 Leaderboard shows the names of the best participants in the game. This is
+restricted for bad words, which is going to be checked in the front end.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.2 Show the best time and the date of the submition of the attempt.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3.3 Each level will have its own leaderboard which will be stored in the backed
+with firebase.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3.4 Leaderboard has a level selector style viewer where you can observe the leaderboard. for each level (Retreive Data for each Leaderboard)
 
-## Learn More
+Logical Parts
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Header
+   (Navbar)
+   (Shows Characters)
+   (shows time)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Level Selector
+   (level cards)
+   (How to play Popup)
 
-### Code Splitting
+3. Main Game
+   (image)
+   (popups for names)
+   (Aiming Logic)
+   (Validation Logic on backend)
+   (Popups for correct or incorrect)
+   (End Game save username and save data for backend)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. Leaderboard
+   (Retreive Data for each Leaderboard)
+   (Retreive each username data)
