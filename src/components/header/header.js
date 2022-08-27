@@ -1,32 +1,53 @@
 /* eslint-disable react/prop-types */
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Characters from "./gameHeader";
+
+const HeaderDiv = styled.div`
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  min-height: 70px;
+  background-color: gray;
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  align-items: center;
+  justify-items: center;
+`;
 
 function Header(props) {
-  const { logo, levels } = props;
-  const { gameId } = useParams();
+  const { logo, characters, leaderboard } = props;
 
-  if (gameId) {
-    const selectedLevel = levels.find((level) => {
-      return level.id === gameId;
-    });
-  }
-  const gameHeader = (
-    <div className="header">
-      <Link to="/">
-        <button type="button">Home</button>
-      </Link>
-    </div>
-  );
-
-  const defaultHeader = (
-    <div className="header">
+  let header = (
+    <HeaderDiv className="header">
       <Link to="/leaderboard">
         <button type="button">Leaderboard</button>
       </Link>
       <img src={logo} alt="Game Logo" />
-    </div>
+    </HeaderDiv>
   );
-  return defaultHeader;
+
+  if (characters) {
+    header = (
+      <HeaderDiv className="header">
+        <Link to="/">
+          <button type="button">Home</button>
+        </Link>
+        <Characters characters={characters} />
+      </HeaderDiv>
+    );
+  } else if (leaderboard) {
+    header = (
+      <HeaderDiv className="header">
+        <Link to="/">
+          <button type="button">Home</button>
+        </Link>
+        <h2>LeaderBoard</h2>
+      </HeaderDiv>
+    );
+  }
+
+  return header;
 }
 
 export default Header;
