@@ -22,6 +22,8 @@ const levelFactory = function (id, name, cardImage, image, alt, characters) {
 
 const characterFactory = function (id, name, image) {
   const found = false;
+
+  return { id, name, image, found };
 };
 
 const rickandmorty = levelFactory(
@@ -31,9 +33,9 @@ const rickandmorty = levelFactory(
   rickandmortyGame,
   "Rick and Morty",
   [
-    characterFactory(0, "Amish Cyborg", amishcyborg),
-    characterFactory(1, "Ghost In Jar", ghostinjar),
-    characterFactory(2, "Mr Poopy Butthole", mrpoopybutthole),
+    characterFactory("amishcyborg0", "Amish Cyborg", amishcyborg),
+    characterFactory("ghostinjar0", "Ghost In Jar", ghostinjar),
+    characterFactory("mrpoopybutthole0", "Mr Poopy Butthole", mrpoopybutthole),
   ],
 );
 const spongebob = levelFactory(
@@ -43,9 +45,9 @@ const spongebob = levelFactory(
   spongebobGame,
   "SpongeBob SquarePants",
   [
-    characterFactory(0, "Grandma Squarepants", grandma),
-    characterFactory(1, "Karen Plankton", karen),
-    characterFactory(2, "Barnacle Boy", barnacleboy),
+    characterFactory("grandmasquarepants0", "Grandma Squarepants", grandma),
+    characterFactory("karenplankton0", "Karen Plankton", karen),
+    characterFactory("barnacleboy0", "Barnacle Boy", barnacleboy),
   ],
 );
 const mixed = levelFactory(
@@ -55,9 +57,9 @@ const mixed = levelFactory(
   mixedGame,
   "Mixed Characters",
   [
-    characterFactory(0, "Ash Ketchum", ash),
-    characterFactory(1, "Kermit", kermit),
-    characterFactory(2, "Reddit Snoo", snoo),
+    characterFactory("ashketchum0", "Ash Ketchum", ash),
+    characterFactory("redditsnoo0", "Reddit Snoo", snoo),
+    characterFactory("kermit0", "Kermit", kermit),
   ],
 );
 
