@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const Modal = styled.div`

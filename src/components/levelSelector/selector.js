@@ -23,6 +23,7 @@ function LevelSelector(props) {
               alt={level.alt}
               levelName={level.name}
               id={level.id}
+              key={`${level.id}levelselector`}
             />
           );
         })}{" "}

@@ -38,7 +38,7 @@ function ClickBox(props) {
         if (!character.found) {
           return (
             <Character
-              key={character.name}
+              key={`${character.id}clickbox`}
               onClick={() => {
                 setclickCoordinates(false);
                 takeSelection(character.id);

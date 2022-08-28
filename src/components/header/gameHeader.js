@@ -20,6 +20,7 @@ function Characters(props) {
               id={character.id}
               name={character.name}
               image={character.image}
+              key={`${character.id}gameheader`}
             />
           );
         })}{" "}

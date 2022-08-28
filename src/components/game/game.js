@@ -1,7 +1,8 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { collection, getDocs } from "@firebase/firestore";
@@ -17,11 +18,6 @@ const GameImg = styled.img`
 `;
 
 function Game(props) {
-  const [clickCoordinates, setclickCoordinates] = useState(false);
-  const [charactersTracker, setCharactersTracker] = useState([]);
-  const [characterCoordinates, setCharacterCoordinates] = useState([]);
-  const [reportModalStatus, setReportModalStatus] = useState(false);
-
   const { levels } = props;
   const { gameId } = useParams();
   const selectedLevel = levels.find((level) => {
@@ -29,6 +25,13 @@ function Game(props) {
   });
   const { name, image, alt, id, characters } = selectedLevel;
   const charCoorRef = collection(db, id);
+
+  const [clickCoordinates, setclickCoordinates] = useState(false);
+  const [charactersTracker, setCharactersTracker] = useState(
+    [structuredClone(characters)][0],
+  );
+  const [characterCoordinates, setCharacterCoordinates] = useState();
+  const [reportModalStatus, setReportModalStatus] = useState(false);
 
   function setMouseClickCoordinates(event) {
     const x = event.clientX;
@@ -45,9 +48,12 @@ function Game(props) {
           yRelative: relativeCoordinates.yRelative,
         });
   }
+  const location = useLocation();
+
+  const modalTimeout = setTimeout(() => setReportModalStatus(false), 5000);
 
   function setCloseModalTimeout() {
-    setTimeout(() => setReportModalStatus(false), 3000);
+    setTimeout(() => setReportModalStatus(false), 5000);
   }
 
   function takeSelection(id) {
@@ -76,11 +82,14 @@ function Game(props) {
       setCloseModalTimeout();
     }
   }
+  useEffect(() => {
+    console.log(location);
+  }, [location.key]);
 
   useEffect(() => {
-    setCharactersTracker(characters);
     const getCharCoordinates = async function () {
       const data = await getDocs(charCoorRef);
+      console.log("gotdata");
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
