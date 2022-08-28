@@ -1,3 +1,4 @@
+import { click } from "@testing-library/user-event/dist/click";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -25,27 +26,35 @@ const Span = styled.span`
 `;
 
 function ClickBox(props) {
-  const { clickCoordinates, setclickCoordinates, characters } = props;
+  const { clickCoordinates, setclickCoordinates, characters, takeSelection } =
+    props;
 
   const left = clickCoordinates.x;
   const top = clickCoordinates.y;
 
-  return (
+  const clickBox = clickCoordinates ? (
     <Container left={left} top={top}>
       {characters.map((character) => {
-        return (
-          <Character
-            onClick={() => {
-              setclickCoordinates(false);
-            }}
-          >
-            <Image src={character.image} alt={character.name} />
-            <Span>{character.name}</Span>
-          </Character>
-        );
+        if (!character.found) {
+          return (
+            <Character
+              key={character.name}
+              onClick={() => {
+                setclickCoordinates(false);
+                takeSelection(character.id);
+              }}
+            >
+              <Image src={character.image} alt={character.name} />
+              <Span>{character.name}</Span>
+            </Character>
+          );
+        }
+        return "";
       })}
     </Container>
-  );
+  ) : null;
+
+  return clickBox;
 }
 
 export default ClickBox;

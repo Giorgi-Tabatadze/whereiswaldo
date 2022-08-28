@@ -5,6 +5,7 @@ import Characters from "./gameHeader";
 
 const HeaderDiv = styled.div`
   position: sticky;
+  z-index: 50;
   top: 0;
   width: 100vw;
   min-height: 70px;

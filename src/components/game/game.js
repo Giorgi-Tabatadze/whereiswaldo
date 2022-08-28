@@ -5,18 +5,11 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { collection, getDocs } from "@firebase/firestore";
+import relativeCoords from "./relativeCoordinates";
 import { db } from "../../firebase-config";
 import Header from "../header/header";
 import ClickBox from "./clickbox";
-
-function relativeCoords(event) {
-  const bounds = event.target.getBoundingClientRect();
-  const { offsetWidth, offsetHeight } = event.target;
-
-  const xRelative = ((event.clientX - bounds.left) / offsetWidth) * 100;
-  const yRelative = ((event.clientY - bounds.top) / offsetHeight) * 100;
-  return { xRelative, yRelative };
-}
+import ReportModal from "./reportModal";
 
 const GameImg = styled.img`
   position: relative;
@@ -26,7 +19,8 @@ const GameImg = styled.img`
 function Game(props) {
   const [clickCoordinates, setclickCoordinates] = useState(false);
   const [charactersTracker, setCharactersTracker] = useState([]);
-  const [characterCoordinates, setCharacterCoordinates] = useState({});
+  const [characterCoordinates, setCharacterCoordinates] = useState([]);
+  const [reportModalStatus, setReportModalStatus] = useState(false);
 
   const { levels } = props;
   const { gameId } = useParams();
@@ -35,7 +29,6 @@ function Game(props) {
   });
   const { name, image, alt, id, characters } = selectedLevel;
   const charCoorRef = collection(db, id);
-  setCharacterCoordinates(characters);
 
   function setMouseClickCoordinates(event) {
     const x = event.clientX;
@@ -45,10 +38,47 @@ function Game(props) {
     // eslint-disable-next-line no-unused-expressions
     clickCoordinates
       ? setclickCoordinates(false)
-      : setclickCoordinates({ x, y });
+      : setclickCoordinates({
+          x,
+          y,
+          xRelative: relativeCoordinates.xRelative,
+          yRelative: relativeCoordinates.yRelative,
+        });
+  }
+
+  function setCloseModalTimeout() {
+    setTimeout(() => setReportModalStatus(false), 3000);
+  }
+
+  function takeSelection(id) {
+    const charCoordinates = characterCoordinates.find((character) => {
+      return character.id === id;
+    });
+    const charIndex = charactersTracker.findIndex((character) => {
+      return character.id === id;
+    });
+    if (
+      clickCoordinates.xRelative >= charCoordinates.xStart &&
+      clickCoordinates.xRelative <= charCoordinates.xEnd &&
+      clickCoordinates.yRelative >= charCoordinates.yStart &&
+      clickCoordinates.yRelative <= charCoordinates.yEnd
+    ) {
+      const modifiedArray = [...charactersTracker];
+      modifiedArray[charIndex].found = true;
+      setCharactersTracker([...modifiedArray]);
+      setReportModalStatus({
+        color: "green",
+        characterName: modifiedArray[charIndex].name,
+      });
+      setCloseModalTimeout();
+    } else {
+      setReportModalStatus({ color: "red" });
+      setCloseModalTimeout();
+    }
   }
 
   useEffect(() => {
+    setCharactersTracker(characters);
     const getCharCoordinates = async function () {
       const data = await getDocs(charCoorRef);
       const filteredData = data.docs.map((doc) => ({
@@ -61,7 +91,7 @@ function Game(props) {
     getCharCoordinates();
   }, []);
 
-  const gameBoard = clickCoordinates ? (
+  const gameBoard = (
     <div className="game-container">
       <Header characters={charactersTracker} />
       <GameImg src={image} alt={alt} onClick={setMouseClickCoordinates} />
@@ -69,12 +99,9 @@ function Game(props) {
         clickCoordinates={clickCoordinates}
         setclickCoordinates={setclickCoordinates}
         characters={charactersTracker}
+        takeSelection={takeSelection}
       />
-    </div>
-  ) : (
-    <div className="game-container">
-      <Header characters={charactersTracker} />
-      <GameImg src={image} alt={alt} onClick={setMouseClickCoordinates} />
+      <ReportModal reportModalStatus={reportModalStatus} />
     </div>
   );
 
