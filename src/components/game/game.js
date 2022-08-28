@@ -4,6 +4,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../../firebase-config";
 import Header from "../header/header";
 import ClickBox from "./clickbox";
 
@@ -23,6 +25,8 @@ const GameImg = styled.img`
 
 function Game(props) {
   const [clickCoordinates, setclickCoordinates] = useState(false);
+  const [charactersTracker, setCharactersTracker] = useState([]);
+  const [characterCoordinates, setCharacterCoordinates] = useState({});
 
   const { levels } = props;
   const { gameId } = useParams();
@@ -30,13 +34,14 @@ function Game(props) {
     return level.id === gameId;
   });
   const { name, image, alt, id, characters } = selectedLevel;
+  const charCoorRef = collection(db, id);
+  setCharacterCoordinates(characters);
 
   function setMouseClickCoordinates(event) {
     const x = event.clientX;
     const y = event.clientY;
 
     const relativeCoordinates = relativeCoords(event);
-    console.log(relativeCoordinates);
     // eslint-disable-next-line no-unused-expressions
     clickCoordinates
       ? setclickCoordinates(false)
@@ -44,27 +49,34 @@ function Game(props) {
   }
 
   useEffect(() => {
-    console.log(clickCoordinates);
-  });
+    const getCharCoordinates = async function () {
+      const data = await getDocs(charCoorRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setCharacterCoordinates(filteredData);
+    };
+
+    getCharCoordinates();
+  }, []);
+
   const gameBoard = clickCoordinates ? (
     <div className="game-container">
-      <Header characters={characters} />
+      <Header characters={charactersTracker} />
       <GameImg src={image} alt={alt} onClick={setMouseClickCoordinates} />
       <ClickBox
         clickCoordinates={clickCoordinates}
         setclickCoordinates={setclickCoordinates}
-        characters={characters}
+        characters={charactersTracker}
       />
     </div>
   ) : (
     <div className="game-container">
-      <Header characters={characters} />
+      <Header characters={charactersTracker} />
       <GameImg src={image} alt={alt} onClick={setMouseClickCoordinates} />
     </div>
   );
-  useEffect(() => {
-    console.log(clickCoordinates);
-  });
 
   return gameBoard;
 }
