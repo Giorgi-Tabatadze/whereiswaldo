@@ -43,6 +43,7 @@ function Game(props) {
   const [startTime, setstartTime] = useState(Date.now());
   const [timeElapsed, setTimeElapsed] = useState(false);
   const [userName, setUserName] = useState("");
+  const [timeout, settimeout] = useState();
 
   ///  Functions ////////////////////////////////////////////////////////////////////
 
@@ -64,7 +65,7 @@ function Game(props) {
   }
 
   function setCloseModalTimeout() {
-    setTimeout(() => setReportModalStatus(false), 2000);
+    return setTimeout(() => setReportModalStatus(false), 2000);
   }
 
   function takeSelection(id) {
@@ -87,10 +88,12 @@ function Game(props) {
         color: "green",
         characterName: modifiedArray[charIndex].name,
       });
-      setCloseModalTimeout();
+      clearTimeout(timeout);
+      settimeout(setCloseModalTimeout());
     } else {
       setReportModalStatus({ color: "red" });
-      setCloseModalTimeout();
+      clearTimeout(timeout);
+      settimeout(setCloseModalTimeout());
     }
   }
 
