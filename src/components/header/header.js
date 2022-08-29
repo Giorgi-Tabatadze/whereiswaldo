@@ -9,6 +9,7 @@ const HeaderDiv = styled.div`
   z-index: 50;
   top: 0;
   width: 100vw;
+  max-width: 100%;
   min-height: 70px;
   background-color: gray;
   display: grid;

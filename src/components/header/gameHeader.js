@@ -15,6 +15,9 @@ function Characters(props) {
     <div className="header">
       <CharDiv>
         {characters.map((character) => {
+          if (character.found) {
+            return null;
+          }
           return (
             <Charater
               id={character.id}
