@@ -20,7 +20,7 @@ const LeaderboardContainer = styled.div`
 `;
 
 function Leaderboard(props) {
-  const { levels } = props;
+  const { levels, setLoading } = props;
 
   let selectedLevel;
   let { gameId } = useParams();
@@ -66,7 +66,7 @@ function Leaderboard(props) {
         })}{" "}
       </SelectorContainer>
       <h2>{selectedLevel.name}</h2>
-      <LeaderboardList gameId={gameId} />
+      <LeaderboardList gameId={gameId} setLoading={setLoading} />
     </LeaderboardContainer>
   );
 }

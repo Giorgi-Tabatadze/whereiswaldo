@@ -4,13 +4,16 @@ import { db } from "../../firebase-config";
 
 function LeaderboardList(props) {
   const [leaderboard, SetLeaderboard] = useState([]);
-  const { gameId } = props;
+  const { gameId, setLoading } = props;
   const leaderBoardRef = collection(db, `${gameId}Leaderboard`);
 
   ///  Hooks ////////////////////////////////////////////////////////////
   useEffect(() => {
     const getLeaderboardInfo = async function () {
+      setLoading(true);
       const data = await getDocs(leaderBoardRef);
+      setLoading(false);
+
       console.log("gotdata");
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),

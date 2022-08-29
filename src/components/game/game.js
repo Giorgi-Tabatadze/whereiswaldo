@@ -24,7 +24,7 @@ const GameImg = styled.img`
 
 function Game(props) {
   ///  Props ////////////////////////////////////////////////////////////
-  const { levels } = props;
+  const { levels, setLoading } = props;
   const { gameId } = useParams();
   const selectedLevel = levels.find((level) => {
     return level.id === gameId;
@@ -99,7 +99,9 @@ function Game(props) {
     playerInfo.name = name;
     playerInfo.time = timeElapsed;
     console.log(leaderBoardRef);
+    setLoading(true);
     await addDoc(leaderBoardRef, playerInfo);
+    setLoading(false);
 
     navigate(`/leaderboard/${id}`);
   }
@@ -107,7 +109,9 @@ function Game(props) {
   ///  Hooks ////////////////////////////////////////////////////////////
   useEffect(() => {
     const getCharCoordinates = async function () {
+      setLoading(true);
       const data = await getDocs(charCoorRef);
+      setLoading(false);
       console.log("gotdata");
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),

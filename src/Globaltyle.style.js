@@ -8,6 +8,10 @@ const GlobalStyle = createGlobalStyle`
   button{
     cursor: pointer;
   }
+  .loadingSpinner {
+  background-color: white;
+}
+
 `;
 
 export default GlobalStyle;
