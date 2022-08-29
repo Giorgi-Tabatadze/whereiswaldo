@@ -20,6 +20,7 @@ import NameInputPortal from "./nameInputPortal";
 const GameImg = styled.img`
   position: relative;
   width: 100vw;
+  max-width: 100%;
 `;
 
 function Game(props) {
