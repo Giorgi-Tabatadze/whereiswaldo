@@ -1,16 +1,21 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { collection, getDocs } from "@firebase/firestore";
+import { collection, getDocs, addDoc } from "@firebase/firestore";
+import { async } from "@firebase/util";
 import relativeCoords from "./relativeCoordinates";
 import { db } from "../../firebase-config";
 import Header from "../header/header";
 import ClickBox from "./clickbox";
 import ReportModal from "./reportModal";
+import getTimeDifference from "./getTimeDifference";
+import NameInputPortal from "./nameInputPortal";
 
 const GameImg = styled.img`
   position: relative;
@@ -18,6 +23,7 @@ const GameImg = styled.img`
 `;
 
 function Game(props) {
+  ///  Props ////////////////////////////////////////////////////////////
   const { levels } = props;
   const { gameId } = useParams();
   const selectedLevel = levels.find((level) => {
@@ -25,20 +31,28 @@ function Game(props) {
   });
   const { name, image, alt, id, characters } = selectedLevel;
   const charCoorRef = collection(db, id);
+  const leaderBoardRef = collection(db, `${id}Leaderboard`);
 
+  ///  States///////////////////////////////////////////////////////////////////////////
   const [clickCoordinates, setclickCoordinates] = useState(false);
   const [charactersTracker, setCharactersTracker] = useState(
     [structuredClone(characters)][0],
   );
   const [characterCoordinates, setCharacterCoordinates] = useState();
   const [reportModalStatus, setReportModalStatus] = useState(false);
+  const [startTime, setstartTime] = useState(Date.now());
+  const [timeElapsed, setTimeElapsed] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  ///  Functions ////////////////////////////////////////////////////////////////////
+
+  const navigate = useNavigate();
 
   function setMouseClickCoordinates(event) {
     const x = event.clientX;
     const y = event.clientY;
 
     const relativeCoordinates = relativeCoords(event);
-    // eslint-disable-next-line no-unused-expressions
     clickCoordinates
       ? setclickCoordinates(false)
       : setclickCoordinates({
@@ -48,12 +62,9 @@ function Game(props) {
           yRelative: relativeCoordinates.yRelative,
         });
   }
-  const location = useLocation();
-
-  const modalTimeout = setTimeout(() => setReportModalStatus(false), 5000);
 
   function setCloseModalTimeout() {
-    setTimeout(() => setReportModalStatus(false), 5000);
+    setTimeout(() => setReportModalStatus(false), 2000);
   }
 
   function takeSelection(id) {
@@ -82,10 +93,18 @@ function Game(props) {
       setCloseModalTimeout();
     }
   }
-  useEffect(() => {
-    console.log(location);
-  }, [location.key]);
 
+  async function AddToLeaderBoard(name) {
+    const playerInfo = {};
+    playerInfo.name = name;
+    playerInfo.time = timeElapsed;
+    console.log(leaderBoardRef);
+    await addDoc(leaderBoardRef, playerInfo);
+
+    navigate(`/leaderboard/${id}`);
+  }
+
+  ///  Hooks ////////////////////////////////////////////////////////////
   useEffect(() => {
     const getCharCoordinates = async function () {
       const data = await getDocs(charCoorRef);
@@ -100,6 +119,23 @@ function Game(props) {
     getCharCoordinates();
   }, []);
 
+  useEffect(() => {
+    if (
+      !charactersTracker.some((character) => {
+        return character.found === false;
+      })
+    ) {
+      const timeeElapsed = getTimeDifference(startTime) / 1000;
+      setTimeElapsed(timeeElapsed);
+    }
+  }, [charactersTracker]);
+  useEffect(() => {
+    if (userName !== "") {
+      AddToLeaderBoard(userName);
+    }
+  }, [userName]);
+
+  /// JSX /////////////////////////////////////////////////////////
   const gameBoard = (
     <div className="game-container">
       <Header characters={charactersTracker} />
@@ -111,6 +147,7 @@ function Game(props) {
         takeSelection={takeSelection}
       />
       <ReportModal reportModalStatus={reportModalStatus} />
+      <NameInputPortal timeElapsed={timeElapsed} setUserName={setUserName} />
     </div>
   );
 
