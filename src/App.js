@@ -4,6 +4,7 @@ import Header from "./components/header/header";
 import LevelSelector from "./components/levelSelector/selector";
 import Game from "./components/game/game";
 import GlobalStyle from "./Globaltyle.style";
+import Leaderboard from "./components/leaderboard/leaderboard";
 
 function App() {
   return (
@@ -11,9 +12,17 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<LevelSelector levels={levelsArray} />} />
-        <Route path="/leaderboards" element={<div>This is Leaderboard</div>} />
+        <Route
+          path="/leaderboard/"
+          element={<Leaderboard levels={levelsArray} />}
+        />
+        <Route
+          path="/leaderboard/:gameId"
+          element={<Leaderboard levels={levelsArray} />}
+        />
         <Route path="/game/:gameId" element={<Game levels={levelsArray} />} />
       </Routes>
+      <div id="portal" />
     </Router>
   );
 }
