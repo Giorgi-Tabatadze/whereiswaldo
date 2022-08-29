@@ -29,8 +29,14 @@ function ClickBox(props) {
   const { clickCoordinates, setclickCoordinates, characters, takeSelection } =
     props;
 
-  const left = clickCoordinates.x;
-  const top = clickCoordinates.y;
+  let left = clickCoordinates.x;
+  if (clickCoordinates.xRelative > 90) {
+    left -= 100;
+  }
+  let top = clickCoordinates.y;
+  if (clickCoordinates.yRelative > 90) {
+    top -= 100;
+  }
 
   const clickBox = clickCoordinates ? (
     <Container left={left} top={top}>
