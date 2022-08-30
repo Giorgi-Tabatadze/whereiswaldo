@@ -17,6 +17,10 @@ import ReportModal from "./reportModal";
 import getTimeDifference from "./getTimeDifference";
 import NameInputPortal from "./nameInputPortal";
 
+const Filter = require("bad-words");
+
+const filter = new Filter();
+
 const GameImg = styled.img`
   position: relative;
   width: 100vw;
@@ -100,7 +104,11 @@ function Game(props) {
 
   async function AddToLeaderBoard(name) {
     const playerInfo = {};
-    playerInfo.name = name;
+    if (filter.isProfane(name)) {
+      alert("NO PROFANE LANGUAGE!");
+      return;
+    }
+    playerInfo.name = filter.clean(name);
     playerInfo.time = timeElapsed;
     console.log(leaderBoardRef);
     setLoading(true);
