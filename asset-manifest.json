@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/whereiswaldo/static/js/main.4a89c3b7.js",
+    "static/media/mixedgame.jpg": "/whereiswaldo/static/media/mixedgame.e7c14ef1fd93ee6c3ce3.jpg",
+    "static/media/spongebobgame.jpeg": "/whereiswaldo/static/media/spongebobgame.4a27a01b28cb39fce93e.jpeg",
+    "static/media/rickandmortyGame.jpg": "/whereiswaldo/static/media/rickandmortyGame.7b330a3e3050bec0c190.jpg",
+    "static/media/mixedcard.jpg": "/whereiswaldo/static/media/mixedcard.341fc70460f3c3c87361.jpg",
+    "static/media/rickandmortycard.jpg": "/whereiswaldo/static/media/rickandmortycard.d5479867416bb9f46979.jpg",
+    "static/media/ghostinjar.png": "/whereiswaldo/static/media/ghostinjar.f213782d5ac2114a9c62.png",
+    "static/media/ash.png": "/whereiswaldo/static/media/ash.c6b3825a3eaf5e3be36a.png",
+    "static/media/karen.png": "/whereiswaldo/static/media/karen.0ea09f470d51a6d8239f.png",
+    "static/media/kermit.png": "/whereiswaldo/static/media/kermit.45929e36b4415a9943ef.png",
+    "static/media/grandma.png": "/whereiswaldo/static/media/grandma.ce785cb787c5a28cf5e5.png",
+    "static/media/barnacleboy.png": "/whereiswaldo/static/media/barnacleboy.420cf1c28c6933fa8082.png",
+    "static/media/snoo.png": "/whereiswaldo/static/media/snoo.44faaaa4ef47d76b37c2.png",
+    "static/media/mrpoopybutthole.png": "/whereiswaldo/static/media/mrpoopybutthole.f1e3c7e5ead0f1522881.png",
+    "static/media/spongebobcard.jpg": "/whereiswaldo/static/media/spongebobcard.22f90bc521446309afea.jpg",
+    "static/media/amishcyborg.png": "/whereiswaldo/static/media/amishcyborg.52f9a8b0defc9286429e.png",
+    "index.html": "/whereiswaldo/index.html",
+    "main.4a89c3b7.js.map": "/whereiswaldo/static/js/main.4a89c3b7.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.4a89c3b7.js"
+  ]
+}
