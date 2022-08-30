@@ -11,22 +11,19 @@ const Card = styled.div`
     scale: 1.05;
     cursor: pointer;
   }
+  padding: 10px 10px;
+  background-color: rgb(37, 150, 190);
+  border-radius: 15px;
 `;
 const Image = styled.img`
   width: 200px;
 `;
 
 const Span = styled.span`
-  position: absolute;
   text-transform: uppercase;
   font-size: 15px;
-  width: 200px;
   padding: 20px 0;
-  background-color: rgb(0, 0, 0, 0.5);
   color: white;
-  left: 50%;
-  top: 91%;
-  transform: translate(-50%, -50%);
 `;
 
 function LevelCard(props) {

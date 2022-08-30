@@ -26,6 +26,7 @@ const GameImg = styled.img`
   width: 100vw;
   max-width: 100%;
 `;
+const GameContainer = styled.div``;
 
 function Game(props) {
   ///  Props ////////////////////////////////////////////////////////////
@@ -153,7 +154,7 @@ function Game(props) {
 
   /// JSX /////////////////////////////////////////////////////////
   const gameBoard = (
-    <div className="game-container">
+    <GameContainer>
       <Header characters={charactersTracker} />
       <GameImg src={image} alt={alt} onClick={setMouseClickCoordinates} />
       <ClickBox
@@ -164,7 +165,7 @@ function Game(props) {
       />
       <ReportModal reportModalStatus={reportModalStatus} />
       <NameInputPortal timeElapsed={timeElapsed} setUserName={setUserName} />
-    </div>
+    </GameContainer>
   );
 
   return gameBoard;

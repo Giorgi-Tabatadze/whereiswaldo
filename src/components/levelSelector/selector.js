@@ -13,6 +13,8 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
+  background-color: #222; ;
 `;
 const HowToPlayContainer = styled.div`
   display: flex;

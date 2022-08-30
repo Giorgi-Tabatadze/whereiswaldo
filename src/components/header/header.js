@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Characters from "./gameHeader";
+import logo from "./logo2.png";
 
 const HeaderDiv = styled.div`
   position: sticky;
@@ -11,22 +12,26 @@ const HeaderDiv = styled.div`
   width: 100vw;
   max-width: 100%;
   min-height: 70px;
-  background-color: gray;
+  background-color: black;
   display: grid;
   grid-template-columns: 200px 1fr 200px;
   align-items: center;
   justify-items: center;
 `;
 
+const Logo = styled.img`
+  width: 200px;
+`;
+
 function Header(props) {
-  const { logo, characters, leaderboard } = props;
+  const { characters, leaderboard } = props;
 
   let header = (
     <HeaderDiv className="header">
       <Link to="/leaderboard">
         <button type="button">Leaderboard</button>
       </Link>
-      <img src={logo} alt="Game Logo" />
+      <Logo src={logo} alt="Game Logo" />
     </HeaderDiv>
   );
 

@@ -15,6 +15,9 @@ const ModalDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #222;
+  text-align: center;
+  gap: 10px;
 `;
 const ModalOverlay = styled.div`
   position: fixed;

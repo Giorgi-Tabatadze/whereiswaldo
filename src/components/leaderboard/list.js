@@ -1,6 +1,19 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "@firebase/firestore";
+import styled from "styled-components";
 import { db } from "../../firebase-config";
+
+const Td = styled.td``;
+const Th = styled.th`
+  text-align: start;
+  font-size: 20px;
+  background-color: black;
+`;
+const Tr = styled.tr`
+  display: grid;
+  grid-template-columns: 200px 400px 400px;
+  border: 1px solid white;
+`;
 
 function LeaderboardList(props) {
   const [leaderboard, SetLeaderboard] = useState([]);
@@ -40,21 +53,21 @@ function LeaderboardList(props) {
   const table = (
     <table>
       <thead>
-        <tr>
-          <th>Place</th>
-          <th>Name</th>
-          <th>time</th>
-        </tr>{" "}
+        <Tr>
+          <Th>Place</Th>
+          <Th>Name</Th>
+          <Th>Time</Th>
+        </Tr>{" "}
       </thead>
       <tbody>
         {leaderboard.map((player, index) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <tr key={`${player.time}${index}`}>
-              <td>{index + 1}</td>
-              <td>{player.name}</td>
-              <td>{player.time}</td>
-            </tr>
+            <Tr key={`${player.time}${index}`}>
+              <Td>{index + 1}</Td>
+              <Td>{player.name}</Td>
+              <Td>{player.time}</Td>
+            </Tr>
           );
         })}
       </tbody>
