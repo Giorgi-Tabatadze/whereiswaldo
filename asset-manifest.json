@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/whereiswaldo/static/js/main.4a89c3b7.js",
+    "main.js": "/whereiswaldo/static/js/main.48da27b6.js",
     "static/media/mixedgame.jpg": "/whereiswaldo/static/media/mixedgame.e7c14ef1fd93ee6c3ce3.jpg",
     "static/media/spongebobgame.jpeg": "/whereiswaldo/static/media/spongebobgame.4a27a01b28cb39fce93e.jpeg",
     "static/media/rickandmortyGame.jpg": "/whereiswaldo/static/media/rickandmortyGame.7b330a3e3050bec0c190.jpg",
@@ -17,9 +17,9 @@
     "static/media/spongebobcard.jpg": "/whereiswaldo/static/media/spongebobcard.22f90bc521446309afea.jpg",
     "static/media/amishcyborg.png": "/whereiswaldo/static/media/amishcyborg.52f9a8b0defc9286429e.png",
     "index.html": "/whereiswaldo/index.html",
-    "main.4a89c3b7.js.map": "/whereiswaldo/static/js/main.4a89c3b7.js.map"
+    "main.48da27b6.js.map": "/whereiswaldo/static/js/main.48da27b6.js.map"
   },
   "entrypoints": [
-    "static/js/main.4a89c3b7.js"
+    "static/js/main.48da27b6.js"
   ]
 }
